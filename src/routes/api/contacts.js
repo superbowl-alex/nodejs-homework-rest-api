@@ -10,6 +10,10 @@ const {
   updateContact,
 } = require("../../models/contacts");
 
+const {
+  addContactsValidation,
+} = require("../../middleware/validationMiddleware");
+
 router.get("/", async (req, res, next) => {
   try {
     const contacts = await listContacts();
@@ -47,7 +51,7 @@ router.get("/:contactId", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", addContactsValidation, async (req, res, next) => {
   try {
     const body = req.body;
     const newContact = await addContact(body);
@@ -85,7 +89,7 @@ router.delete("/:contactId", async (req, res, next) => {
   }
 });
 
-router.put("/:contactId", async (req, res, next) => {
+router.put("/:contactId", addContactsValidation, async (req, res, next) => {
   try {
     const id = req.params.contactId;
     const body = req.body;
@@ -97,7 +101,7 @@ router.put("/:contactId", async (req, res, next) => {
       });
     }
     res.json({
-      status: 200,
+      status: 201,
       updatedContact,
     });
   } catch (error) {}
