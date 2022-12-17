@@ -19,8 +19,7 @@ module.exports = {
     const validationResult = schema.validate(req.body);
 
     if (validationResult.error) {
-      return res.json({
-        status: 400,
+      return res.status(400).json({
         message: validationResult.error.details[0].message,
       });
     }
