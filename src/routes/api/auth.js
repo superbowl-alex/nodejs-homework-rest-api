@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { users: ctrl } = require("../../controllers");
 
-const { validation, ctrlWrapper } = require("../../middlewares");
+const { validation, ctrlWrapper, authenticate } = require("../../middlewares");
 const { schemas } = require("../../models/user");
 
 router.post(
@@ -13,5 +13,7 @@ router.post(
 );
 
 router.post("/login", validation(schemas.authSchema), ctrlWrapper(ctrl.login));
+
+router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
 
 module.exports = router;
