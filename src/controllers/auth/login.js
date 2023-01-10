@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../../models/user");
 const createError = require("http-errors");
 
-require("dotenv").config();
 const { SECRET_KEY } = process.env;
 
 const login = async (req, res) => {
@@ -15,7 +14,7 @@ const login = async (req, res) => {
     throw createError(401, "Email or password is wrong");
   }
 
-  const passwordCompare = bcrypt.compare(password, user.password);
+  const passwordCompare = await bcrypt.compare(password, user.password);
 
   if (!passwordCompare) {
     throw createError(401, "Email or password is wrong");
