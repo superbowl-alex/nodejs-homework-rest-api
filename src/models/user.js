@@ -37,10 +37,17 @@ userSchema.post("save", handleSchemaValidationErrors);
 const authSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(4).required(),
+  subscription: Joi.string(),
+  token: Joi.string(),
+});
+
+const updateSubscriptionSchema = Joi.object({
+  subscription: Joi.string().valid("starter", "pro", "business").required(),
 });
 
 const schemas = {
   authSchema,
+  updateSubscriptionSchema,
 };
 
 const User = model("user", userSchema);
