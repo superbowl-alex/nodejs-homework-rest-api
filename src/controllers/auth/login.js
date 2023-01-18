@@ -6,8 +6,8 @@ const createError = require("http-errors");
 const { SECRET_KEY } = process.env;
 
 const login = async (req, res) => {
-  const body = req.body;
-  const { email, password } = body;
+  // const body = req.body;
+  const { email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (!user) {
