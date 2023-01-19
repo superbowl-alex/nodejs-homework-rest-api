@@ -6,7 +6,6 @@ const createError = require("http-errors");
 const { SECRET_KEY } = process.env;
 
 const login = async (req, res) => {
-  // const body = req.body;
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
@@ -18,6 +17,10 @@ const login = async (req, res) => {
 
   if (!passwordCompare) {
     throw createError(401, "Email or password is wrong");
+  }
+
+  if (!user.verify) {
+    throw createError(403, "Email not verified");
   }
 
   const payload = {
