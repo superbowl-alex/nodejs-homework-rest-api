@@ -3,7 +3,7 @@ const createError = require("http-errors");
 const gravatar = require("gravatar");
 const { v4: uuidv4 } = require("uuid");
 const { User } = require("../../models/user");
-const { sendEmail } = require("../../helpers");
+const { sendEmail } = require("../../services/email");
 
 const register = async (req, res) => {
   const body = req.body;
